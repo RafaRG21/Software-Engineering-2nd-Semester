@@ -1,0 +1,203 @@
+#include "BluetoothSerial.h"
+
+#if !defined(CONFIG_BT_ENABLED) || !defined(CONFIG_BLUEDROID_ENABLED)
+#error Bluetooth is not enabled! Please run 'make menuconfig' to and enable it
+#endif
+
+BluetoothSerial SerialBT;
+int a = 12;
+int b = 13;
+int c = 14;
+int d = 27;
+int e = 26;
+int f = 25;
+int g = 33;
+
+
+const int LED = 32;
+const int LED2 = 34;
+
+String message = "";
+char incomingChar;
+
+int brightness = 0;    // how bright the LED is
+int fadeAmount = 5;    // how many points to fade the LED by
+
+
+void setup() {
+
+  pinMode(a, OUTPUT);
+  pinMode(b, OUTPUT);
+  pinMode(c, OUTPUT);
+  pinMode(d, OUTPUT);
+  pinMode(e, OUTPUT);
+  pinMode(f, OUTPUT);
+  pinMode(g, OUTPUT);
+
+  // put your setup code here, to run once:
+  ledcAttachPin(LED,0);
+  ledcSetup(0, 400, 8);
+
+  pinMode(LED2, OUTPUT);
+  
+  Serial.begin(115200);
+  SerialBT.begin("ESP32");
+  Serial.println("The device started");
+}
+
+void loop() {
+  // put your main code here, to run repeatedly:
+  
+  if (SerialBT.available()){
+    char incomingChar = SerialBT.read();
+    if(incomingChar != '\n'){
+      message += String(incomingChar);
+    }
+    else{
+      message = "";
+    }
+    Serial.write(incomingChar);
+  }
+
+  if(message == "faded"){
+    SerialBT.print("Faded Activado");
+    do{
+  
+    ledcWrite(0, brightness);
+
+  // change the brightness for next time through the loop:
+    brightness = brightness + fadeAmount;
+
+  // reverse the direction of the fading at the ends of the fade:
+      if (brightness <= 0 || brightness >= 255) {
+        fadeAmount = -fadeAmount;
+      }
+  // wait for 30 milliseconds to see the dimming effect
+      delay(30);
+    }while ( brightness > 0);
+    
+  }else if(message == "0"){
+    SerialBT.print("Display Off");
+    digitalWrite(a,LOW);
+digitalWrite(b,LOW);
+digitalWrite(c,LOW);
+digitalWrite(d,LOW);
+digitalWrite(e,LOW);
+digitalWrite(f,LOW);
+digitalWrite(g,LOW);
+    
+  }else if(message == "1"){
+    SerialBT.print("Display On");
+    digitalWrite(a,HIGH);
+digitalWrite(b,HIGH);
+digitalWrite(c,HIGH);
+digitalWrite(d,HIGH);
+digitalWrite(e,HIGH);
+digitalWrite(f,HIGH);
+digitalWrite(g,HIGH);
+  }else if(message == "blink"){
+    SerialBT.print("Blink Activado");
+    digitalWrite(a,HIGH);
+delay(1000);        
+digitalWrite(a,LOW);
+delay(1000);
+digitalWrite(a,HIGH);
+delay(1000);        
+digitalWrite(a,LOW);
+delay(1000);
+digitalWrite(a,HIGH);
+delay(1000);        
+digitalWrite(a,LOW);
+delay(1000); 
+digitalWrite(a,HIGH);
+delay(1000);        
+digitalWrite(a,LOW);
+delay(1000); 
+digitalWrite(a,HIGH);
+delay(1000);        
+digitalWrite(a,LOW);
+delay(1000); 
+digitalWrite(a,HIGH);
+delay(1000);        
+digitalWrite(a,LOW);
+delay(1000); 
+digitalWrite(a,HIGH);
+delay(1000);        
+digitalWrite(a,LOW);
+delay(1000); 
+digitalWrite(a,HIGH);
+delay(1000);        
+digitalWrite(a,LOW);
+delay(1000); 
+digitalWrite(a,HIGH);
+delay(1000);        
+digitalWrite(a,LOW);
+delay(1000);  
+  }else if(message == "4"){ 
+    SerialBT.print("Caminata Activado");
+  digitalWrite(a,HIGH);
+  digitalWrite(b,LOW);
+  digitalWrite(c,LOW);
+  digitalWrite(d,LOW);
+  digitalWrite(e,LOW);
+  digitalWrite(f,LOW);
+  digitalWrite(g,LOW);
+delay(100);
+  digitalWrite(a,LOW);
+  digitalWrite(b,HIGH);
+  digitalWrite(c,LOW);
+  digitalWrite(d,LOW);
+  digitalWrite(e,LOW);
+  digitalWrite(f,LOW);
+  digitalWrite(g,LOW);
+delay(100);
+  digitalWrite(a,LOW);
+  digitalWrite(b,LOW);
+  digitalWrite(c,HIGH);
+  digitalWrite(d,LOW);
+  digitalWrite(e,LOW);
+  digitalWrite(f,LOW);
+  digitalWrite(g,LOW);
+delay(100);
+  digitalWrite(a,LOW);
+  digitalWrite(b,LOW);
+  digitalWrite(c,LOW);
+  digitalWrite(d,HIGH);
+  digitalWrite(e,LOW);
+  digitalWrite(f,LOW);
+  digitalWrite(g,LOW);
+delay(100);
+  digitalWrite(a,LOW);
+  digitalWrite(b,LOW);
+  digitalWrite(c,LOW);
+  digitalWrite(d,LOW);
+  digitalWrite(e,HIGH);
+  digitalWrite(f,LOW);
+  digitalWrite(g,LOW);
+delay(100);
+  digitalWrite(a,LOW);
+  digitalWrite(b,LOW);
+  digitalWrite(c,LOW);
+  digitalWrite(d,LOW);
+  digitalWrite(e,LOW);
+  digitalWrite(f,HIGH);
+  digitalWrite(g,LOW);
+delay(100);
+  digitalWrite(a,LOW);
+  digitalWrite(b,LOW);
+  digitalWrite(c,LOW);
+  digitalWrite(d,LOW);
+  digitalWrite(e,LOW);
+  digitalWrite(f,LOW);
+  digitalWrite(g,HIGH);
+delay(100);
+  digitalWrite(a,LOW);
+  digitalWrite(b,LOW);
+  digitalWrite(c,LOW);
+  digitalWrite(d,LOW);
+  digitalWrite(e,LOW);
+  digitalWrite(f,LOW);
+  digitalWrite(g,LOW);
+  }  
+  delay(20);
+}

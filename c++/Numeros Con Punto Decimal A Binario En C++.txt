@@ -1,0 +1,230 @@
+#include <iostream>
+#include <stdlib.h>
+#include <stdio.h>
+using namespace std;
+
+int main(int argc, char** argv){
+	float num,d=0,auxdec;
+	int ent,auxent,car[5],a=0;
+	int i=0,j=1,k=0,bin[7],auxbin[7];
+	bool sign,dir=1;
+	cout<<"\n\n\nEscribe Un Numero Con Punto Decimal\n";
+	cin>>num;
+	if(num<0){
+		num=num*-1;
+		sign=1;
+	}else{
+		sign=0;
+	}
+	ent=num;
+	d=ent;
+	d=(num-d);
+	cout<<"\n";
+	if((num-ent)<0){
+		ent=ent-1;
+	}else{
+		ent=num;
+		auxent=ent;
+	}
+	if(d/1!=0){
+		if(ent>0){
+			i=0;
+			k=0;
+			dir=0;
+			//cout<<"IN ";
+			while(auxent>0){
+			fflush(stdin);
+			auxbin[i]=auxent%2;
+			//cout<<auxbin[i];
+			auxent=auxent/2;
+			i++;
+			k++;
+		}
+		j=k;
+		j--;
+		//Impresion de J & K
+		//cout<<"\n"<<j<<k<<"\n";
+		for(int z=0;z<k;z++){
+			bin[z]=auxbin[j];
+			//Auxiliar de arreglo Der-Izq a Izq-Der
+			//cout<<bin[z];
+			j--;
+		}
+		//CARACTERISTICA
+		auxent=k;
+		i=0;
+		//cout<<"\nCAR->:\n";
+		while(i<6){
+			if(auxent<=0){
+				auxbin[i]=0;
+			}
+			fflush(stdin);
+			auxbin[i]=auxent%2;
+			//cout<<auxbin[i];
+			auxent=auxent/2;
+			i++;
+		}
+		auxent=i;
+		i--;
+		//cout<<"\n"<<auxent<<"CAR<-:\n";
+		for(int z=0;z<auxent;z++){
+			car[z]=auxbin[i];
+			//Auxiliar de arreglo Der-Izq a Izq-Der
+		//	cout<<car[z];
+			i--;
+		}
+	}
+	if((d/1)!=0){
+		//cout<<"<0\n";
+		if(ent==0){
+			j=0;
+			dir=1;
+			auxent=ent;
+			auxdec=d;
+			i=0;
+			do{
+				fflush(stdin);
+				//cout<<"\n"<<auxdec<<"*2=";
+				auxdec=auxdec*2;
+				auxent=auxdec;
+				if(auxent==2){
+					auxent=1;
+				}
+				if(auxent==1){
+					i++;
+				}
+				//cout<<auxdec<<"|"<<auxent<<"\n";
+				if(i!=0){
+					bin[j]=auxent;
+					j++;
+				}else{
+					k++;
+				}
+				if(auxdec>1){
+					auxdec=auxdec-1;
+				}
+				if((auxdec-auxent)<0){
+					auxent=auxent-1;
+				}
+				//cout<<auxent;
+				//cout<<"\nARREGLO DEC: "<<bin[j]<<"\n";
+			}while(j<8);
+			//CARACTERISTICA
+			auxent=k;
+			i=0;
+			//cout<<"\nCAR->:\n";
+			while(i<6){
+				if(auxent<=0){
+					auxbin[i]=0;
+				}
+				fflush(stdin);
+				auxbin[i]=auxent%2;
+				//cout<<auxbin[i];
+				auxent=auxent/2;
+				i++;
+			}
+			auxent=i;
+			i--;
+			//cout<<"\n"<<auxent<<"CAR<-:\n";
+			for(int z=0;z<auxent;z++){
+				car[z]=auxbin[i];
+				//Auxiliar de arreglo Der-Izq a Izq-Der
+				//	cout<<car[z];
+				i--;
+			}
+		}else{
+			dir=0;
+			j=k;
+		//cout<<"\nJ="<<j<<"\n"<<d<<"DECIMAL!";
+		//cout<<"\n";
+		//j=k;
+			auxent=ent;
+			auxdec=d;
+			k=0;
+			do{
+				fflush(stdin);
+				//cout<<"\n"<<auxdec<<"*2=";
+				auxdec=auxdec*2;
+				auxent=auxdec;
+				if(auxent==2){
+					auxent=1;
+				}
+				//cout<<auxdec<<"|"<<auxent<<"\n";
+				bin[j]=auxent;
+				if(auxdec>1){
+					auxdec=auxdec-1;
+				}
+				if((auxdec-auxent)<0){
+					auxent=auxent-1;
+				}
+				//cout<<auxent;
+				//cout<<"\nARREGLO DEC: "<<bin[j]<<"\n";
+				j++;
+			}while(j<8);
+		}
+	}
+	}else{
+		fflush(stdin);
+		i=0;
+		k=0;
+		dir=0;
+		auxent=ent;
+		while(i<7){
+			fflush(stdin);
+			if(auxent>0){
+				auxbin[i]=auxent%2;
+				//cout<<auxbin[i];
+				auxent=auxent/2;
+				a++;
+			}else{
+				auxbin[i]=0;	
+			}
+			i++;
+			k++;
+		}
+		j=i;
+		//j--;
+		//Impresion de J & K
+		//cout<<"\n"<<j<<k<<"\n";
+		for(int z=0;z<k;z++){
+			bin[z]=auxbin[j];
+			//Auxiliar de arreglo Der-Izq a Izq-Der
+			//***cout<<bin[z];
+			j--;
+		}
+		//CARACTERISTICA
+		auxent=a;
+		i=0;
+		//cout<<"\nCAR->:\n";
+		while(i<6){
+			if(auxent<=0){
+				auxbin[i]=0;
+			}
+			fflush(stdin);
+			auxbin[i]=auxent%2;
+			//cout<<auxbin[i];
+			auxent=auxent/2;
+			i++;
+		}
+		auxent=i;
+		i--;
+		//cout<<"\n"<<auxent<<"CAR<-:\n";
+		for(int z=0;z<auxent;z++){
+			car[z]=auxbin[i];
+			//Auxiliar de arreglo Der-Izq a Izq-Der
+			//	cout<<car[z];
+			i--;
+		}
+	}
+	cout<<"\nSIGNO|<01>| C A R A C T E R I S T I C A |          M A N T I S A \n   ";
+	cout<<sign<<"    "<<dir<<"      ";
+	for(i=0;i<6;i++){
+			cout<<car[i]<<"   ";
+		}
+	cout<<"    ";
+	for(i=0;i<8;i++){
+			cout<<bin[i]<<"   ";
+		}
+	cout<<"\nBit:\n   16   15     14  13  12  11  10  9       8   7   6   5   4   3   2   1";
+	return 0;
+}

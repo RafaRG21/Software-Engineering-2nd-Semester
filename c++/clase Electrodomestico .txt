@@ -1,0 +1,114 @@
+
+
+#include <iostream>
+#include <string.h>
+
+
+using namespace std;
+
+
+class Electrodomestico{
+  
+  private:
+  int precio;
+  string color;
+  char consumo;
+  int peso;
+  
+  public:
+  Electrodomestico(){
+         precio=100;
+   color="blanco";
+   consumo='F';
+   peso=5;
+  }
+  
+  Electrodomestico(int _precio, string _color){
+    if(comprobarColor(_color)){
+        color=_color;
+        
+    }else{
+        color="blanco";
+    }  
+    
+    precio=_precio;
+  }
+   Electrodomestico(int _precio, string _color, char _consumo, int _peso){
+    if(comprobarColor(_color)){
+        color=_color;
+        
+    }else{
+        color="blanco";
+    }  
+    if(comprobarConsumoEnergetico(_consumo)){
+        consumo=_consumo;
+    }else{
+        consumo='F';
+    }
+    precio=_precio;
+
+    peso=_peso;
+  }
+  
+  void leer(){
+      cout<<"El color es:"<<color<<endl;
+      cout<<"El precio es:"<<precio<<endl;
+      cout<<"El consumo es:"<<consumo<<endl;
+      cout<<"El peso es:"<<peso<<endl;
+
+  }
+  bool comprobarConsumoEnergetico(char x){
+      if(x=='A'||x=='B'||x=='C'||x=='D'||x=='E'||x=='F'){
+          return true;
+      }else{
+          return false;
+      }
+  }
+   bool comprobarColor(string x){
+      if(x=="blanco"||x=="negro"||x=="rojo"||x=="azul"||x=="gris"){
+          return true;
+      }else{
+          return false;
+      }
+  }
+  
+  void precioF(){
+      if(consumo=='A'){
+          cout<<"precio tipo A: "<<precio<<endl;
+      }
+      if(consumo=='B'){
+          cout<<"precio tipo B: "<<precio<<endl;
+      }
+      if(consumo=='C'){
+          cout<<"precio tipo C: "<<precio<<endl;
+      }
+      if(consumo=='D'){
+          cout<<"precio tipo D: "<<precio<<endl;
+      }
+      if(consumo=='E'){
+          cout<<"precio tipo E: "<<precio<<endl;
+      }
+      if(consumo=='F'){
+          cout<<"precio tipo F: "<<precio<<endl;
+      }
+  }
+  
+    
+};
+
+
+
+int main()
+{
+    
+  Electrodomestico x=Electrodomestico();
+  x.leer();
+  x.precioF();
+  
+  
+  
+  
+  
+
+    return 0;
+}
